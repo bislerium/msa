@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "Msa.Protos.Common";
+
+package msa.protos.common;
+
+enum Expect {
+  SUCCESS = 0;
+  FAILURE = 1;
+  RANDOM = 2;
+}
+
+message ResponseExpectationRequest {
+  Expect expect = 1;
+}

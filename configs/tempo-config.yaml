@@ -1,0 +1,74 @@
+stream_over_http_enabled: true
+server:
+  http_listen_port: 3200
+   # At larger scales, searching starts to feel more like a batch job.
+  # Increase the server timeout intervals.
+  http_server_read_timeout: 2m
+  http_server_write_timeout: 2m
+
+
+querier:
+  # Control the amount of work each querier will attempt. The total number of
+  # jobs a querier will attempt this is this value * query_frontend.max_batch_size
+  max_concurrent_queries: 20
+
+query_frontend:
+  # When increasing concurrent_jobs, also increase the queue size per tenant,
+  # or search requests will be cause 429 errors. This is the total number of jobs
+  # per tenant allowed in the queue.
+  max_outstanding_per_tenant: 2000
+
+  # The number of jobs the query-frontend will batch together when passing jobs to the queriers. This value
+  # This value * querier.max_concurrent_queries is your the max number of jobs a given querier will try at once.
+  max_batch_size: 3
+
+  search:
+    # At larger scales, increase the number of jobs attempted simultaneously,
+    # per search query.
+    concurrent_jobs: 2000
+
+    # The query-frontend will attempt to divide jobs up by an estimate of job size. The smallest possible
+    # job size is a single parquet row group. Increasing this value will create fewer, larger jobs. Decreasing
+    # it will create more, smaller jobs.
+    target_bytes_per_job: 50_000_000
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        http:
+        grpc:
+
+ingester:
+  max_block_duration: 5m               # cut the headblock when this much time passes. this is being set for demo purposes and should probably be left alone normally
+
+compactor:
+  compaction:
+    block_retention: 1h                # overall Tempo trace retention. set for demo purposes
+
+metrics_generator:
+  registry:
+    external_labels:
+      source: tempo
+      cluster: docker-compose
+  storage:
+    path: /var/tempo/generator/wal
+    remote_write:
+      - url: http://msa-prometheus:9090/api/v1/write
+        send_exemplars: true
+  traces_storage:
+    path: /var/tempo/generator/traces
+
+storage:
+  trace:
+    backend: local                     # backend configuration to use
+    wal:
+      path: /var/tempo/wal             # where to store the wal locally
+    local:
+      path: /var/tempo/blocks
+
+overrides:
+  defaults:
+    metrics_generator:
+      processors: [service-graphs, span-metrics, local-blocks] # enables metrics generator
+      generate_native_histograms: both

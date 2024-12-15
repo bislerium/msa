@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "Msa.Protos.Weather";
+
+import "google/protobuf/empty.proto";
+import "msa.protos.common/expect.proto";
+
+package msa.protos.weather;
+
+service WeatherForecastService {
+    rpc GetWeatherForecasts (msa.protos.common.ResponseExpectationRequest) returns (WeatherForecastListResponse);
+}
+
+message WeatherForecastListResponse {
+    repeated WeatherForecast forecasts = 1;
+}
+
+message WeatherForecast {
+    string date = 1; // Use string to represent DateOnly as ISO 8601 format
+    int32 temperatureC = 2;
+    string summary = 3;
+}

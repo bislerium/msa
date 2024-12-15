@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+	
+	<ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.29.0" />
+    <PackageReference Include="Grpc.Core" Version="2.46.6" />
+    <PackageReference Include="Grpc.Tools" Version="2.67.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\Msa.Protos.Common\expect.proto" ProtoRoot=".." ProtoCompile="False" GrpcServices="None" Link="msa.protos.common\expect.proto" />
+		<Protobuf Include="*.proto" AdditionalImportDirs="../" GrpcServices="Both" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Msa.Protos.Common\Msa.Protos.Common.csproj" />
+	</ItemGroup>
+	
+</Project>

@@ -1,0 +1,75 @@
+datasources:
+  
+  - name: Loki
+    type: loki
+    uid: loki-ds1
+    access: proxy
+    url: http://msa.loki:3100
+    basicAuth: false
+    isDefault: false
+    editable: false
+  
+  - name: Tempo
+    type: tempo
+    uid: tempo-ds1
+    access: proxy
+    url: http://msa.tempo:3200
+    basicAuth: false
+    isDefault: true
+    jsonData:
+      tracesToLogsV2:
+        # Field with an internal link pointing to a logs data source in Grafana.
+        # datasourceUid value must match the uid value of the logs data source.
+        datasourceUid: 'loki-ds1'
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+        tags: ['job', 'instance', 'pod', 'namespace']
+        filterByTraceID: false
+        filterBySpanID: false
+        customQuery: true
+        query: 'method="$${__span.tags.method}"'
+      tracesToMetrics:
+        datasourceUid: 'prometheus-ds1'
+        spanStartTimeShift: '1h'
+        spanEndTimeShift: '-1h'
+        tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
+        queries:
+          - name: 'Sample query'
+            query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
+      tracesToProfiles:
+        datasourceUid: 'grafana-pyroscope-datasource'
+        tags: ['job', 'instance', 'pod', 'namespace']
+        profileTypeId: 'process_cpu:cpu:nanoseconds:cpu:nanoseconds'
+        customQuery: true
+        query: 'method="$${__span.tags.method}"'
+      serviceMap:
+        datasourceUid: 'prometheus-ds1'
+      nodeGraph:
+        enabled: true
+      search:
+        hide: false
+      traceQuery:
+        timeShiftEnabled: true
+        spanStartTimeShift: '1h'
+        spanEndTimeShift: '-1h'
+      spanBar:
+        type: 'Tag'
+        tag: 'http.path'
+      streamingEnabled:
+        search: true
+
+  - name: Jaeger
+    type: jaeger
+    uid: jaeger-ds1
+    access: proxy
+    url: http://msa.jaeger:16686
+    basicAuth: false
+    isDefault: false
+
+  - name: Prometheus
+    type: prometheus
+    uid: prometheus-ds1
+    access: proxy
+    url: http://msa.prometheus:9090
+    basicAuth: false
+    isDefault: false

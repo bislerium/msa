@@ -1,0 +1,106 @@
+networks:
+  shared_network:
+    driver: bridge
+
+services:
+
+  msa.services.servicea:
+    image: ${DOCKER_REGISTRY-}msaservicesservicea
+    container_name: msa.services.servicea
+    build:
+      context: .
+      dockerfile: src/Services/Msa.Services.ServiceA/Dockerfile
+    depends_on:
+      - msa.jaeger
+      - msa.otel-collector
+      - msa.prometheus
+
+  msa.services.serviceb:
+    image: ${DOCKER_REGISTRY-}msaservicesserviceb
+    container_name: msa.services.serviceb
+    build:
+      context: .
+      dockerfile: src/Services/Msa.Services.ServiceB/Dockerfile
+    depends_on:
+      - msa.jaeger
+      - msa.otel-collector
+      - msa.prometheus
+
+  msa.services.servicec:
+    image: ${DOCKER_REGISTRY-}msaservicesservicec
+    container_name: msa.services.servicec
+    build:
+      context: .
+      dockerfile: src/Services/Msa.Services.ServiceC/Dockerfile
+    depends_on:
+      - msa.jaeger
+      - msa.otel-collector
+      - msa.prometheus
+
+  msa.redis:
+    image: redis:7.4.1
+    container_name: msa.redis
+
+  msa.otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.115.1
+    container_name: msa.otel-collector
+    ports:
+      - 4317:4317 
+    volumes:
+      - ./configs/otel-collector-config.yaml:/otel-local-config.yaml
+    command:
+      - "--config=/otel-local-config.yaml"
+    depends_on:
+      - msa.jaeger
+      - msa.loki 
+
+  msa.jaeger:
+    image: jaegertracing/all-in-one:1.63.0
+    container_name: msa.jaeger
+    ports:
+      - "16686:16686"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+
+  msa.prometheus:
+    image: prom/prometheus:v3.0.1
+    container_name: msa.prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./configs/prometheus.yaml:/etc/prometheus/prometheus.yaml
+    command:
+      - "--web.enable-otlp-receiver"
+      - "--config.file=/etc/prometheus/prometheus.yaml"
+    depends_on:
+      - msa.otel-collector
+
+  msa.grafana:
+    image: grafana/grafana-oss:11.3.2
+    container_name: msa.grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - msa.prometheus
+    volumes:
+      - ./grafana/grafana-data-sources.yaml:/etc/grafana/provisioning/datasources/config.yaml
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-exploretraces-app 
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+
+  msa.loki:
+    image: grafana/loki:3.1.0
+    container_name: msa.loki
+    volumes:
+      - ./configs/loki-config.yaml:/etc/loki/local-config.yaml
+    command: 
+      - "--config.file=/etc/loki/local-config.yaml"
+
+  msa.tempo:
+    image: grafana/tempo:2.6.1
+    container_name: msa.tempo
+    volumes:
+      - ./configs/tempo-config.yaml:/etc/tempo/tempo.yaml
+    command:
+      - "-config.file=/etc/tempo/tempo.yaml"

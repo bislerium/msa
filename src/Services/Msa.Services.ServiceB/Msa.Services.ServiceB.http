@@ -1,0 +1,6 @@
+@Msa.Services.ServiceB_HostAddress = http://localhost:5168
+
+GET {{Msa.Services.ServiceB_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

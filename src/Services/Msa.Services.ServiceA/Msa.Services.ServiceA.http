@@ -1,0 +1,16 @@
+@Msa.Services.ServiceA_HostAddress = https://localhost:62342
+
+GET {{Msa.Services.ServiceA_HostAddress}}/weatherforecast/Success
+Accept: application/json
+
+###
+
+GET {{Msa.Services.ServiceA_HostAddress}}/weatherforecast/Failure
+Accept: application/json
+
+###
+
+GET {{Msa.Services.ServiceA_HostAddress}}/weatherforecast/Random
+Accept: application/json
+
+###

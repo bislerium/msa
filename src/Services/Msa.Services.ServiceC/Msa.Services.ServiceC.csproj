@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dffcd184-a868-467e-9a48-5b6596346203</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Msa.Extensions.Random\Msa.Extensions.Random.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\Protos\Msa.Protos.Weather\Msa.Protos.Weather.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\ServiceDefaults\Msa.ServiceDefaults.OpenTelemetry\Msa.ServiceDefaults.OpenTelemetry.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option csharp_namespace = "Msa.Protos.Actor";
+
+import "google/protobuf/empty.proto";
+import "msa.protos.common/expect.proto";
+
+package msa.protos.actor;
+
+service ActorService {
+  rpc Act(msa.protos.common.ResponseExpectationRequest) returns (google.protobuf.Empty);
+}
