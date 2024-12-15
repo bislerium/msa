@@ -18,10 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Msa.Extensions.Random\Msa.Extensions.Random.csproj" />
+	<ProjectReference Include="..\..\BuildingBlocks\Extensions\Msa.Extensions.Random\Msa.Extensions.Random.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\Protos\Msa.Protos.Actor\Msa.Protos.Actor.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\Protos\Msa.Protos.Weather\Msa.Protos.Weather.csproj" />
-    <ProjectReference Include="..\..\BuildingBlocks\ServiceDefaults\Msa.ServiceDefaults.OpenTelemetry\Msa.ServiceDefaults.OpenTelemetry.csproj" />
+	  <ProjectReference Include="..\..\BuildingBlocks\ServiceDefaults\Msa.ServiceDefaults.OpenTelemetry\Msa.ServiceDefaults.OpenTelemetry.csproj" />
   </ItemGroup>
 
 </Project>

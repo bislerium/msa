@@ -33,11 +33,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Msa.Protos.Common", "src\Bu
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CA8F6514-703D-42A6-B7A9-F6FFD5ACB657}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Msa.Extensions.Random", "..\Msa.Extensions.Random\Msa.Extensions.Random.csproj", "{361F19AF-412A-4FB3-B95B-61CBE05A3550}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Msa.Grpc.Interceptors", "src\BuildingBlocks\ServiceDefaults\Msa.Grpc.Interceptors\Msa.Grpc.Interceptors.csproj", "{A3F27ABC-8F9C-41C1-8B95-FCBB3A64B0B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Msa.Extensions.JsonSerializer", "src\BuildingBlocks\Extensions\Msa.Extensions.JsonSerializer\Msa.Extensions.JsonSerializer.csproj", "{656B77A8-4011-4C31-BBF8-A4A374010955}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Msa.Extensions.Random", "src\BuildingBlocks\Extensions\Msa.Extensions.Random\Msa.Extensions.Random.csproj", "{C2A17BDE-D325-44D3-B04F-19ACC192B13D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,10 +81,6 @@ Global
 		{CA8F6514-703D-42A6-B7A9-F6FFD5ACB657}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA8F6514-703D-42A6-B7A9-F6FFD5ACB657}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA8F6514-703D-42A6-B7A9-F6FFD5ACB657}.Release|Any CPU.Build.0 = Release|Any CPU
-		{361F19AF-412A-4FB3-B95B-61CBE05A3550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{361F19AF-412A-4FB3-B95B-61CBE05A3550}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{361F19AF-412A-4FB3-B95B-61CBE05A3550}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{361F19AF-412A-4FB3-B95B-61CBE05A3550}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A3F27ABC-8F9C-41C1-8B95-FCBB3A64B0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A3F27ABC-8F9C-41C1-8B95-FCBB3A64B0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3F27ABC-8F9C-41C1-8B95-FCBB3A64B0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -93,6 +89,10 @@ Global
 		{656B77A8-4011-4C31-BBF8-A4A374010955}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{656B77A8-4011-4C31-BBF8-A4A374010955}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{656B77A8-4011-4C31-BBF8-A4A374010955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2A17BDE-D325-44D3-B04F-19ACC192B13D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A17BDE-D325-44D3-B04F-19ACC192B13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A17BDE-D325-44D3-B04F-19ACC192B13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2A17BDE-D325-44D3-B04F-19ACC192B13D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,8 +111,8 @@ Global
 		{BF33B019-EA90-47EB-AED8-A1225B068032} = {6221D95C-7358-421C-9D9B-24C5D655AD43}
 		{3AC9CD83-B020-4D46-B808-5763448BD29D} = {6221D95C-7358-421C-9D9B-24C5D655AD43}
 		{A417C745-E07E-48D0-8D7D-60B2E92A7CCD} = {6221D95C-7358-421C-9D9B-24C5D655AD43}
-		{361F19AF-412A-4FB3-B95B-61CBE05A3550} = {4CC466D4-2B57-4CB1-986A-DBD166E02F53}
 		{A3F27ABC-8F9C-41C1-8B95-FCBB3A64B0B3} = {91304C9C-9525-4E73-941A-B3F4C2711759}
 		{656B77A8-4011-4C31-BBF8-A4A374010955} = {4CC466D4-2B57-4CB1-986A-DBD166E02F53}
+		{C2A17BDE-D325-44D3-B04F-19ACC192B13D} = {4CC466D4-2B57-4CB1-986A-DBD166E02F53}
 	EndGlobalSection
 EndGlobal
